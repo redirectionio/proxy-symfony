@@ -1,0 +1,9 @@
+# redirection.io Configuration
+redirectionio:
+    connections:
+        # add here all your connection options as follow:
+        real_agent:
+            host: "192.168.64.2"
+            port: 20301
+
+        # ...

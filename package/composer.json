@@ -1,0 +1,57 @@
+{
+    "name": "redirectionio/symfony-bundle",
+    "description": "redirection.io Symfony Bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Grégoire Pineau",
+            "email": "lyrixx@lyrixx.info"
+        },
+        {
+            "name": "Quentin Brunet",
+            "email": "hello@quentinbrunet.com"
+        },
+        {
+            "name": "redirection.io",
+            "email": "coucou@redirection.io"
+        }
+    ],
+    "require": {
+        "redirectionio/sdk": "dev-master"
+    },
+    "require-dev": {
+        "symfony/http-foundation": "^4.0",
+        "symfony/http-kernel": "^4.0",
+        "symfony/phpunit-bridge": "^3.4@beta",
+        "symfony/process": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "RedirectionIO\\Client\\SymfonyBundle\\": ""
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../redirectionio-sdk"
+        },
+        {
+            "type": "path",
+            "url": "../../sdk"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/simple-phpunit"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
