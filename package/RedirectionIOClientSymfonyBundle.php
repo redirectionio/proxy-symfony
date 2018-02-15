@@ -18,4 +18,13 @@ class RedirectionIOClientSymfonyBundle extends Bundle
 
         return $this->extension;
     }
+
+    /**
+     * Returns the bundle parent name.
+     *
+     * @return string|null The Bundle parent name it overrides or null if no parent
+     */
+    public function getParent()
+    {
+    }
 }

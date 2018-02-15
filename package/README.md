@@ -44,14 +44,3 @@ redirectionio:
             port: 3100
         # ...
 ```
-
-## Docker
-
-*Note: Make sure you have `docker` and `docker-compose` installed and a working redirection.io agent.*
-
-You can quickly try this plugin in a dockerized Symfony App:
-
-1. Go to `docker` directory
-2. Run `./start.sh` script
-3. Open `http://redirection-io.test:8001` for the Symfony framework-standard-edition
-4. Open `http://redirection-io.test:8002` for the Symfony Flex

@@ -36,20 +36,20 @@ class RequestResponseListenerTest extends TestCase
 
     public function testWhenRedirectRuleExists()
     {
-        $this->createInitialState(['path' => 'foo']);
+        $this->createInitialState(['path' => '/foo']);
 
         $this->listener->onKernelRequest($this->getResponseEvent);
 
         $this->assertInstanceOf(RedirectResponse::class, $this->getResponseEvent->getResponse());
         $this->assertSame(301, $this->getResponseEvent->getResponse()->getStatusCode());
-        $this->assertSame('http://host1.com/bar', $this->getResponseEvent->getResponse()->getTargetUrl());
+        $this->assertSame('/bar', $this->getResponseEvent->getResponse()->getTargetUrl());
 
         $this->assertSame($this->listener->onKernelTerminate($this->postResponseEvent), true);
     }
 
     public function testWhenRedirectRuleNotExists()
     {
-        $this->createInitialState(['path' => 'hello']);
+        $this->createInitialState(['path' => '/hello']);
 
         $this->listener->onKernelRequest($this->getResponseEvent);
         $this->assertNull($this->getResponseEvent->getResponse());
@@ -69,7 +69,7 @@ class RequestResponseListenerTest extends TestCase
         $client = new Client(['agent' => ['host' => 'localhost', 'port' => 3101]]);
         $this->listener = new RequestResponseListener($client);
 
-        $this->createInitialState(['path' => 'foo']);
+        $this->createInitialState(['path' => '/foo']);
 
         $this->assertSame($this->listener->onKernelRequest($this->getResponseEvent), false);
         $this->assertSame($this->listener->onKernelTerminate($this->postResponseEvent), false);
@@ -110,10 +110,10 @@ class RequestResponseListenerTest extends TestCase
 
     private function createInitialState($requestOptions = [], $responseOptions = [])
     {
-        $host = array_key_exists('host', $requestOptions) ? $requestOptions['host'] : 'host1.com';
-        $path = array_key_exists('path', $requestOptions) ? $requestOptions['path'] : '';
-        $userAgent = array_key_exists('user_agent', $requestOptions) ? $requestOptions['user_agent'] : 'redirection-io-client/0.0.1';
-        $type = array_key_exists('type', $requestOptions) ? $requestOptions['type'] : 1;
+        $host = isset($requestOptions['host']) ? $requestOptions['host'] : 'host1.com';
+        $path = isset($requestOptions['path']) ? $requestOptions['path'] : '';
+        $userAgent = isset($requestOptions['user_agent']) ? $requestOptions['user_agent'] : 'redirection-io-client/0.0.1';
+        $type = isset($requestOptions['type']) ? $requestOptions['type'] : 1;
         // 1 = HttpKernelInterface::MASTERREQUEST
         // 2 = HttpKernelInterface::SUBREQUEST
 
