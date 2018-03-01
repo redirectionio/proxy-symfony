@@ -1,6 +1,6 @@
 {
     "name": "redirectionio/symfony-bundle",
-    "description": "redirection.io Symfony Bundle",
+    "description": "RedirectionIO Proxy for Symfony",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
@@ -14,7 +14,7 @@
         },
         {
             "name": "redirection.io",
-            "email": "coucou@redirection.io"
+            "email": "support@redirection.io"
         }
     ],
     "require": {
@@ -38,16 +38,14 @@
         },
         {
             "type": "path",
-            "url": "../../sdk"
+            "url": "../sdk"
         }
     ],
     "config": {
         "sort-packages": true
     },
     "scripts": {
-        "test": [
-            "vendor/bin/simple-phpunit"
-        ]
+        "test": "vendor/bin/simple-phpunit"
     },
     "extra": {
         "branch-alias": {
