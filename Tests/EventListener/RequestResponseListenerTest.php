@@ -86,7 +86,7 @@ class RequestResponseListenerTest extends TestCase
         $parentFolder = substr(__DIR__, -27, -20);
         $fakeAgent = ('symfony' === $parentFolder) ?
             __DIR__ . '/../../../sdk/src/Resources/fake_agent.php' :
-            './redirectionio-sdk/src/Resources/fake_agent.php';
+            './vendor/redirectionio/proxy-sdk/src/Resources/fake_agent.php';
 
         $agent = new Process([$binary, $fakeAgent]);
         $agent

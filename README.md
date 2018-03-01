@@ -27,7 +27,7 @@ Drop us an email to `support@redirection.io` if you need help or have any questi
 $ composer config extra.symfony.allow-contrib true
 
 # require the bundle
-$ composer require redirectionio/symfony-bundle
+$ composer require redirectionio/proxy-symfony
 ```
 
 ## Configuration

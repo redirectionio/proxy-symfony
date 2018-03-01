@@ -1,5 +1,5 @@
 {
-    "name": "redirectionio/symfony-bundle",
+    "name": "redirectionio/proxy-symfony",
     "description": "RedirectionIO Proxy for Symfony",
     "type": "symfony-bundle",
     "license": "MIT",
@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "redirectionio/sdk": "dev-master"
+        "redirectionio/proxy-sdk": "dev-master"
     },
     "require-dev": {
         "symfony/http-foundation": "^4.0",
@@ -32,10 +32,6 @@
         }
     },
     "repositories": [
-        {
-            "type": "path",
-            "url": "../redirectionio-sdk"
-        },
         {
             "type": "path",
             "url": "../sdk"
