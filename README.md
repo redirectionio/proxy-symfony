@@ -1,5 +1,6 @@
 # RedirectionIO Proxy for Symfony
 
+[![Latest Version](https://img.shields.io/github/release/redirectionio/proxy-symfony.svg)](https://github.com/redirectionio/proxy-symfony)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 [![Build Status](https://img.shields.io/travis/redirectionio/proxy-symfony/master.svg)](https://travis-ci.org/redirectionio/proxy-symfony)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/redirectionio/proxy-symfony.svg)](https://scrutinizer-ci.com/g/redirectionio/proxy-symfony)

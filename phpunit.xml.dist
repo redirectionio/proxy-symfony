@@ -20,7 +20,7 @@
 
     <filter>
         <whitelist>
-            <directory>./</directory>
+            <file>./src/EventListener/RequestResponseListener.php</file>
             <exclude>
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>

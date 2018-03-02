@@ -1,0 +1,48 @@
+language: php
+
+sudo: false
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+
+php:
+    - 5.6
+    - 7.0
+    - 7.1
+    - 7.2
+
+branches:
+    only:
+        - master
+
+env:
+    global:
+        - COMMAND="composer test"
+
+matrix:
+    fast_finish: true
+    include:
+        - php: 5.6
+          env:
+            - COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
+            - COVERAGE=true
+            - COMMAND="composer code-coverage"
+        - php: 7.2
+          env:
+            - CS_FIX=true
+            - COMMAND="composer cs-fix"
+
+before_install:
+    - travis_retry composer self-update
+    - if [[ "$CS_FIX" = true ]]; then phpenv config-rm xdebug.ini || true; fi
+
+install:
+    - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
+
+script:
+    - travis_wait $COMMAND
+
+after_success:
+    - if [[ "$COVERAGE" = true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+    - if [[ "$COVERAGE" = true ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage/coverage.xml; fi

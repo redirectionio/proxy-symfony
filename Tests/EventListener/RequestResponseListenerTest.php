@@ -83,8 +83,8 @@ class RequestResponseListenerTest extends TestCase
         }
 
         // find fake_agent location
-        $parentFolder = substr(__DIR__, -27, -20);
-        $fakeAgent = ('symfony' === $parentFolder) ?
+        $parentFolder = substr(__DIR__, -28, -19);
+        $fakeAgent = ('/symfony/' === $parentFolder) ?
             __DIR__ . '/../../../sdk/src/Resources/fake_agent.php' :
             './vendor/redirectionio/proxy-sdk/src/Resources/fake_agent.php';
 
