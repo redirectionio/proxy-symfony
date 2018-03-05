@@ -70,7 +70,8 @@ class RequestResponseListener
             $symfonyRequest->getHttpHost(),
             $symfonyRequest->getRequestUri(),
             $symfonyRequest->headers->get('User-Agent'),
-            $symfonyRequest->headers->get('Referer')
+            $symfonyRequest->headers->get('Referer'),
+            $symfonyRequest->getScheme()
         );
     }
 }
