@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
                     ->normalizeKeys(false)
                     ->useAttributeAsKey('name')
                     ->addDefaultChildrenIfNoneSet('default')
-                    ->arrayPrototype()
+                    ->prototype('array')
                         ->children()
                             ->scalarNode('host')
                                 ->info('Agent IP or hostname')
