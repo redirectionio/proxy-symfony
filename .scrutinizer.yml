@@ -1,5 +1,8 @@
 filter:
-    paths: [src/]
+    paths: [
+        "DependencyInjection/",
+        "EventListener/"
+    ]
 
 checks:
     php:

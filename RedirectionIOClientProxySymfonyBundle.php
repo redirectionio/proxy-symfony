@@ -1,11 +1,11 @@
 <?php
 
-namespace RedirectionIO\Client\SymfonyBundle;
+namespace RedirectionIO\Client\ProxySymfony;
 
-use RedirectionIO\Client\SymfonyBundle\DependencyInjection\RedirectionIOClientSymfonyExtension;
+use RedirectionIO\Client\ProxySymfony\DependencyInjection\RedirectionIOClientSymfonyExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class RedirectionIOClientSymfonyBundle extends Bundle
+class RedirectionIOClientProxySymfonyBundle extends Bundle
 {
     /**
      * {@inheritdoc}

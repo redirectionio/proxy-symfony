@@ -1,6 +1,6 @@
 <?php
 
-namespace RedirectionIO\Client\SymfonyBundle\EventListener;
+namespace RedirectionIO\Client\ProxySymfony\EventListener;
 
 use RedirectionIO\Client\Sdk\Client;
 use RedirectionIO\Client\Sdk\HttpMessage\Request;

@@ -1,6 +1,6 @@
 {
     "bundles": {
-        "RedirectionIO\\Client\\SymfonyBundle\\RedirectionIOClientSymfonyBundle": ["all"]
+        "RedirectionIO\\Client\\ProxySymfony\\RedirectionIOClientProxySymfonyBundle": ["all"]
     },
     "copy-from-recipe": {
         "config/": "%CONFIG_DIR%/"

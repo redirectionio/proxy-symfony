@@ -1,10 +1,10 @@
 <?php
 
-namespace RedirectionIO\Client\SymfonyBundle\Tests\EventListener;
+namespace RedirectionIO\Client\ProxySymfony\Tests\EventListener;
 
 use PHPUnit\Framework\TestCase;
+use RedirectionIO\Client\ProxySymfony\EventListener\RequestResponseListener;
 use RedirectionIO\Client\Sdk\Client;
-use RedirectionIO\Client\SymfonyBundle\EventListener\RequestResponseListener;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +15,7 @@ use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
 /**
- * @covers \RedirectionIO\Client\SymfonyBundle\EventListener\RequestResponseListener
+ * @covers \RedirectionIO\Client\ProxySymfony\EventListener\RequestResponseListener
  */
 class RequestResponseListenerTest extends TestCase
 {

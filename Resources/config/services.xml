@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="RedirectionIO\Client\SymfonyBundle\EventListener\RequestResponseListener">
+        <service id="RedirectionIO\Client\ProxySymfony\EventListener\RequestResponseListener">
             <tag name="kernel.event_listener" event="kernel.request" priority="1000" />
             <tag name="kernel.event_listener" event="kernel.terminate" />
             <argument type="service" id="RedirectionIO\Client\Sdk\Client" />

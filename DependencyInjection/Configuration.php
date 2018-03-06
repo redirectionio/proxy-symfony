@@ -1,6 +1,6 @@
 <?php
 
-namespace RedirectionIO\Client\SymfonyBundle\DependencyInjection;
+namespace RedirectionIO\Client\ProxySymfony\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

@@ -29,7 +29,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RedirectionIO\\Client\\SymfonyBundle\\": "src/"
+            "RedirectionIO\\Client\\ProxySymfony\\": ""
         }
     },
     "config": {

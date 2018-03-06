@@ -1,6 +1,6 @@
 <?php
 
-namespace RedirectionIO\Client\SymfonyBundle\DependencyInjection;
+namespace RedirectionIO\Client\ProxySymfony\DependencyInjection;
 
 use RedirectionIO\Client\Sdk\Client;
 use Symfony\Component\Config\FileLocator;
