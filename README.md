@@ -13,11 +13,8 @@ redirection.io Symfony Proxy works in combination with [redirection.io](https://
 If you don't know what is redirection.io, take the time to make a quick tour on the website.
 
 Before using it, you need:
-- a redirection.io account
-- a configured redirection.io agent on your server
-
-You don't have an account ? Please contact us [here](https://redirection.io/contact-us).
-You don't have an installed and configured agent ? Follow the [installation guide](https://redirection.io/documentation/developer-documentation/getting-started-installing-the-agent).
+- a redirection.io account. If you don't have an account, please [contact us here](https://redirection.io/contact-us).
+- a configured redirection.io agent on your server. Please follow the [installation guide](https://redirection.io/documentation/developer-documentation/installation-of-the-agent).
 
 Drop us an email to `support@redirection.io` if you need help or have any question.
 
