@@ -12,11 +12,6 @@ use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 
 class RequestResponseListener
 {
-    /**
-     * RedirectionIO Client.
-     *
-     * @var Client;
-     */
     private $client;
 
     public function __construct(Client $client)

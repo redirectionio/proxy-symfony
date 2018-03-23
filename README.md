@@ -1,16 +1,10 @@
 # RedirectionIO Proxy for Symfony
 
-[![Latest Version](https://img.shields.io/github/release/redirectionio/proxy-symfony.svg)](https://github.com/redirectionio/proxy-symfony)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
-[![Build Status](https://img.shields.io/travis/redirectionio/proxy-symfony/master.svg)](https://travis-ci.org/redirectionio/proxy-symfony)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/redirectionio/proxy-symfony.svg)](https://scrutinizer-ci.com/g/redirectionio/proxy-symfony)
-[![Quality Score](https://img.shields.io/scrutinizer/g/redirectionio/proxy-symfony.svg)](https://scrutinizer-ci.com/g/redirectionio/proxy-symfony)
+redirection.io Symfony Proxy works in combination with
+[redirection.io](https://redirection.io).
 
-[![Email](https://img.shields.io/badge/email-support@redirection.io-blue.svg)](mailto:support@redirection.io)
-
-redirection.io Symfony Proxy works in combination with [redirection.io](https://redirection.io).
-
-If you don't know what is redirection.io, take the time to make a quick tour on the website.
+If you don't know what is redirection.io, take the time to make a quick tour on
+the website.
 
 Before using it, you need:
 - a redirection.io account. If you don't have an account, please [contact us here](https://redirection.io/contact-us).
@@ -39,13 +33,9 @@ $ composer require redirectionio/proxy-symfony
 
 ```yaml
 # redirection.io Configuration
-redirectionio:
+redirection_io:
     connections:
-        real_agent:
-            host: "192.168.64.2"
-            port: 20301
-        fake_agent:
-            host: "localhost"
-            port: 3100
-        # ...
+        agent tcp: tcp://127.0.0.1:20301
+        agent unix: unix:///var/run/redirectionio_agent.sock
+
 ```
