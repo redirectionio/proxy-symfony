@@ -7,6 +7,7 @@ use RedirectionIO\Client\Sdk\HttpMessage\Request;
 use RedirectionIO\Client\Sdk\HttpMessage\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 
@@ -33,7 +34,11 @@ class RequestResponseListener
             return;
         }
 
-        $event->setResponse(new SymfonyRedirectResponse($response->getLocation(), $response->getStatusCode()));
+        $response->getStatusCode() == 410
+            ? $event->setResponse((new SymfonyResponse())->setStatusCode(410))
+            : $event->setResponse(new SymfonyRedirectResponse($response->getLocation(), $response->getStatusCode()));
+
+        return true;
     }
 
     public function onKernelTerminate(PostResponseEvent $event)
