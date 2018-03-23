@@ -34,7 +34,7 @@ class RequestResponseListener
             return;
         }
 
-        $response->getStatusCode() == 410
+        $response->getStatusCode() === 410
             ? $event->setResponse((new SymfonyResponse())->setStatusCode(410))
             : $event->setResponse(new SymfonyRedirectResponse($response->getLocation(), $response->getStatusCode()));
 
