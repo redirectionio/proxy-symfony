@@ -22,7 +22,7 @@ class RequestResponseListener
     public function onKernelRequest(GetResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
-            return false;
+            return;
         }
 
         $this->findRedirect($event->getRequest());
@@ -30,12 +30,10 @@ class RequestResponseListener
         $response = $event->getRequest()->get('redirectionio_response');
 
         if (null === $response) {
-            return false;
+            return;
         }
 
         $event->setResponse(new SymfonyRedirectResponse($response->getLocation(), $response->getStatusCode()));
-
-        return true;
     }
 
     public function onKernelTerminate(PostResponseEvent $event)
@@ -63,7 +61,7 @@ class RequestResponseListener
     {
         return new Request(
             $symfonyRequest->getHttpHost(),
-            $symfonyRequest->getRequestUri(),
+            $symfonyRequest->getPathInfo(),
             $symfonyRequest->headers->get('User-Agent'),
             $symfonyRequest->headers->get('Referer'),
             $symfonyRequest->getScheme()
