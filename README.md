@@ -35,7 +35,6 @@ $ composer require redirectionio/proxy-symfony
 # redirection.io Configuration
 redirection_io:
     connections:
-        agent tcp: tcp://127.0.0.1:20301
-        agent unix: unix:///var/run/redirectionio_agent.sock
-
+        agent_tcp: tcp://127.0.0.1:20301
+        agent_unix: unix:///var/run/redirectionio_agent.sock
 ```
