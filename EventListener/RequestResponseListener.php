@@ -30,27 +30,26 @@ class RequestResponseListener
 
         $response = $event->getRequest()->get('redirectionio_response');
 
-        if (null === $response) {
+        if (!$response) {
             return;
         }
 
         $response->getStatusCode() === 410
             ? $event->setResponse((new SymfonyResponse())->setStatusCode(410))
             : $event->setResponse(new SymfonyRedirectResponse($response->getLocation(), $response->getStatusCode()));
-
-        return true;
     }
 
     public function onKernelTerminate(PostResponseEvent $event)
     {
-        $request = $this->createSdkRequest($event->getRequest());
         $response = $event->getRequest()->get('redirectionio_response');
 
-        if (null === $response) {
+        if (!$response) {
             $response = new Response($event->getResponse()->getStatusCode());
         }
 
-        return $this->client->log($request, $response);
+        $request = $this->createSdkRequest($event->getRequest());
+
+        $this->client->log($request, $response);
     }
 
     private function findRedirect(SymfonyRequest $symfonyRequest)
