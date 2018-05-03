@@ -15,9 +15,6 @@ Drop us an email to `support@redirection.io` if you need help or have any questi
 ## Installation
 
 ```bash
-# enable contrib recipes repository
-$ composer config extra.symfony.allow-contrib true
-
 # require the bundle
 $ composer require redirectionio/proxy-symfony
 ```
