@@ -13,7 +13,7 @@
         <service id="RedirectionIO\Client\Sdk\Client" class="RedirectionIO\Client\Sdk\Client">
             <argument /> <!-- connections, set by the extension -->
             <argument>10000</argument>
-            <argument>%kernel.debug%</argument>
+            <argument /> <!-- debug, set by the extension -->
             <argument type="service" id="logger" on-invalid="ignore" />
             <tag name="monolog.logger" channel="redirectionio" />
         </service>
