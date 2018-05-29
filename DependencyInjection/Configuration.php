@@ -29,6 +29,10 @@ class Configuration implements ConfigurationInterface
                         ->defaultValue('tcp://127.0.0.1:20301')
                     ->end()
                 ->end()
+                ->booleanNode('debug')
+                    ->info('Throw exception if something wrong happens')
+                    ->defaultValue('%kernel.debug%')
+                ->end()
             ->end()
         ;
 
