@@ -26,9 +26,9 @@ class RequestResponseListener
             return;
         }
 
-        $this->findRedirect($event->getRequest());
-
-        $response = $event->getRequest()->get('redirectionio_response');
+        $request = $event->getRequest();
+        $response = $this->client->findRedirect($this->createSdkRequest($request));
+        $request->attributes->set('redirectionio_response', $response);
 
         if (!$response) {
             return;
@@ -41,7 +41,7 @@ class RequestResponseListener
 
     public function onKernelTerminate(PostResponseEvent $event)
     {
-        $response = $event->getRequest()->get('redirectionio_response');
+        $response = $event->getRequest()->attributes->get('redirectionio_response');
 
         if (!$response) {
             $response = new Response($event->getResponse()->getStatusCode());
@@ -50,15 +50,6 @@ class RequestResponseListener
         $request = $this->createSdkRequest($event->getRequest());
 
         $this->client->log($request, $response);
-    }
-
-    private function findRedirect(SymfonyRequest $symfonyRequest)
-    {
-        $response = $this->client->findRedirect(
-            $this->createSdkRequest($symfonyRequest)
-        );
-
-        $symfonyRequest->attributes->set('redirectionio_response', $response);
     }
 
     private function createSdkRequest(SymfonyRequest $symfonyRequest)
