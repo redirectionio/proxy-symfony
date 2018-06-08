@@ -6,6 +6,7 @@
     <services>
         <service id="RedirectionIO\Client\ProxySymfony\EventListener\RequestResponseListener" class="RedirectionIO\Client\ProxySymfony\EventListener\RequestResponseListener">
             <argument type="service" id="RedirectionIO\Client\Sdk\Client" />
+            <argument /> <!-- excludedUrls, set by the extension -->
             <tag name="kernel.event_listener" event="kernel.request" priority="1000" />
             <tag name="kernel.event_listener" event="kernel.terminate" />
         </service>

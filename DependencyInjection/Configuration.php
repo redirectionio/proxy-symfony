@@ -14,6 +14,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('redirection_io');
+        $excludedPrefixes = ['/_wdt', '/_profiler', '/_error'];
 
         $rootNode
             ->children()
@@ -32,6 +33,15 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('debug')
                     ->info('Throw exception if something wrong happens')
                     ->defaultValue('%kernel.debug%')
+                ->end()
+                ->arrayNode('excluded_prefixes')
+                    ->info('Exclude a set of prefixes from processing')
+                    ->prototype('scalar')->end()
+                    ->validate()
+                        ->always()
+                        ->then(function ($v) use ($excludedPrefixes) { return array_unique(array_merge($excludedPrefixes, $v)); })
+                    ->end()
+                    ->defaultValue($excludedPrefixes)
                 ->end()
             ->end()
         ;

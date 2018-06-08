@@ -2,6 +2,7 @@
 
 namespace RedirectionIO\Client\ProxySymfony\DependencyInjection;
 
+use RedirectionIO\Client\ProxySymfony\EventListener\RequestResponseListener;
 use RedirectionIO\Client\Sdk\Client;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -29,6 +30,11 @@ class RedirectionIOExtension extends Extension
             ->getDefinition(Client::class)
             ->replaceArgument(0, $connections)
             ->replaceArgument(2, $config['debug'])
+        ;
+
+        $container
+            ->getDefinition(RequestResponseListener::class)
+            ->replaceArgument(1, $config['excluded_prefixes'])
         ;
     }
 }
