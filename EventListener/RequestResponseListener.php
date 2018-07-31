@@ -56,7 +56,10 @@ class RequestResponseListener
         $response = $event->getRequest()->attributes->get('redirectionio_response');
 
         if (!$response) {
-            $response = new Response($event->getResponse()->getStatusCode());
+            $symfonyResponse = $event->getResponse();
+            $location = $symfonyResponse->headers->get('location', null);
+
+            $response = new Response($event->getResponse()->getStatusCode(), null, $location);
         }
 
         $request = $this->createSdkRequest($event->getRequest());
