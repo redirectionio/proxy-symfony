@@ -3,6 +3,7 @@
 ## 0.1.4
 
 - Added `excluded_prefixes` configuration option
+- Add target in every log sent, even if redirection does not come from a rule
 
 ## 0.1.3
 
