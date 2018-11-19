@@ -75,11 +75,34 @@ class RequestResponseListener
     {
         return new Request(
             $symfonyRequest->getHttpHost(),
-            $symfonyRequest->getPathInfo(),
+            $this->getFullPath($symfonyRequest),
             $symfonyRequest->headers->get('User-Agent'),
             $symfonyRequest->headers->get('Referer'),
             $symfonyRequest->getScheme()
         );
+    }
+
+    private function getFullPath(SymfonyRequest $symfonyRequest)
+    {
+        if (null === ($requestUri = $symfonyRequest->getRequestUri())) {
+            return '/';
+        }
+
+        if ('' !== $requestUri && '/' !== $requestUri[0]) {
+            $requestUri = '/'.$requestUri;
+        }
+
+        if (null === ($baseUrl = $symfonyRequest->getBaseUrl())) {
+            return $requestUri;
+        }
+
+        $pathInfo = substr($requestUri, \strlen($baseUrl));
+
+        if (false === $pathInfo || '' === $pathInfo) {
+            return '/';
+        }
+
+        return (string) $pathInfo;
     }
 
     private function isExcludedPrefix($url): bool
