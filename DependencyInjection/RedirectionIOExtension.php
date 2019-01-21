@@ -35,6 +35,7 @@ class RedirectionIOExtension extends Extension
         $container
             ->getDefinition(RequestResponseListener::class)
             ->replaceArgument(1, $config['excluded_prefixes'])
+            ->replaceArgument(2, $config['match_on_response'])
         ;
     }
 }

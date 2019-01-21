@@ -2,6 +2,10 @@
 
 namespace RedirectionIO\Client\ProxySymfony\EventListener;
 
+use RedirectionIO\Client\Sdk\Command\CommandInterface;
+use RedirectionIO\Client\Sdk\Command\LogCommand;
+use RedirectionIO\Client\Sdk\Command\MatchCommand;
+use RedirectionIO\Client\Sdk\Command\MatchWithResponseCommand;
 use RedirectionIO\Client\Sdk\Exception\ExceptionInterface;
 use RedirectionIO\Client\Sdk\Client;
 use RedirectionIO\Client\Sdk\HttpMessage\Request;
@@ -9,6 +13,7 @@ use RedirectionIO\Client\Sdk\HttpMessage\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 
@@ -16,11 +21,13 @@ class RequestResponseListener
 {
     private $client;
     private $excludedPrefixes;
+    private $allowMatchOnResponse;
 
-    public function __construct(Client $client, array $excludedPrefixes = [])
+    public function __construct(Client $client, array $excludedPrefixes = [], bool $allowMatchOnResponse = false)
     {
         $this->client = $client;
         $this->excludedPrefixes = $excludedPrefixes;
+        $this->allowMatchOnResponse = $allowMatchOnResponse;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
@@ -35,16 +42,41 @@ class RequestResponseListener
             return;
         }
 
-        $response = $this->client->findRedirect($this->createSdkRequest($request));
+        /** @var Response $response */
+        $response = $this->client->request($this->createMatchCommand($request));
         $request->attributes->set('redirectionio_response', $response);
 
         if (!$response) {
             return;
         }
 
+        if ($response->getMatchOnResponseStatus() > 0) {
+            return;
+        }
+
         410 === $response->getStatusCode()
             ? $event->setResponse((new SymfonyResponse())->setStatusCode(410))
             : $event->setResponse(new SymfonyRedirectResponse($response->getLocation(), $response->getStatusCode()));
+    }
+
+    public function onKernelResponse(FilterResponseEvent $event)
+    {
+        /** @var Response $rioResponse */
+        $rioResponse = $event->getRequest()->attributes->get('redirectionio_response');
+
+        if (null === $rioResponse) {
+            return;
+        }
+
+        $symfonyResponse = $event->getResponse();
+
+        if ($rioResponse->getMatchOnResponseStatus() === 0 || $rioResponse->getMatchOnResponseStatus() !== $symfonyResponse->getStatusCode()) {
+            return;
+        }
+
+        410 === $rioResponse->getStatusCode()
+            ? $event->setResponse((new SymfonyResponse())->setStatusCode(410))
+            : $event->setResponse(new SymfonyRedirectResponse($rioResponse->getLocation(), $rioResponse->getStatusCode()));
     }
 
     public function onKernelTerminate(PostResponseEvent $event)
@@ -65,10 +97,21 @@ class RequestResponseListener
         $request = $this->createSdkRequest($event->getRequest());
 
         try {
-            $this->client->log($request, $response);
+            $this->client->request(new LogCommand($request, $response));
         } catch (ExceptionInterface $exception) {
             // do nothing
         }
+    }
+
+    private function createMatchCommand(SymfonyRequest $symfonyRequest): CommandInterface
+    {
+        $request = $this->createSdkRequest($symfonyRequest);
+
+        if ($this->allowMatchOnResponse) {
+            return new MatchWithResponseCommand($request);
+        }
+
+        return new MatchCommand($request);
     }
 
     private function createSdkRequest(SymfonyRequest $symfonyRequest)
