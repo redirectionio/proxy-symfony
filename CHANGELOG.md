@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.2.0
+
+- Added support for v0.3 of the SDK
+
 ## 0.1.4
 
 - Added `excluded_prefixes` configuration option
