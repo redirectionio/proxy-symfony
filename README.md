@@ -31,9 +31,10 @@ $ composer require redirectionio/proxy-symfony
 ```yaml
 # redirection.io Configuration
 redirection_io:
+    project_key: 'foo:bar'
     connections:
-        agent_tcp: tcp://127.0.0.1:20301
-        agent_unix: unix:///var/run/redirectionio_agent.sock
+        agent_tcp: 'tcp://127.0.0.1:20301'
+        agent_unix: 'unix:///var/run/redirectionio_agent.sock'
     excluded_prefixes:
         - /admin
         # ...

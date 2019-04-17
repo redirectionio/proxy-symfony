@@ -18,6 +18,11 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('project_key')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                    ->info('Your project key that can be found at: https://redirection.io/manager/<organization>/<project>/instances')
+                ->end()
                 ->arrayNode('connections')
                     ->normalizeKeys(false)
                     ->useAttributeAsKey('name')

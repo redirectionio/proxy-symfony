@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "redirectionio/proxy-sdk": "0.2.*||0.3.*"
+        "redirectionio/proxy-sdk": "0.3.*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.10",

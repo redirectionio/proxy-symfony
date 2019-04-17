@@ -14,6 +14,7 @@
         </service>
 
         <service id="RedirectionIO\Client\Sdk\Client" class="RedirectionIO\Client\Sdk\Client">
+            <argument /> <!-- project key, set by the extension -->
             <argument /> <!-- connections, set by the extension -->
             <argument>10000</argument>
             <argument /> <!-- debug, set by the extension -->

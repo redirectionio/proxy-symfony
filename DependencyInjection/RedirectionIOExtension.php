@@ -28,8 +28,9 @@ class RedirectionIOExtension extends Extension
 
         $container
             ->getDefinition(Client::class)
-            ->replaceArgument(0, $connections)
-            ->replaceArgument(2, $config['debug'])
+            ->replaceArgument(0, $config['project_key'])
+            ->replaceArgument(1, $connections)
+            ->replaceArgument(3, $config['debug'])
         ;
 
         $container
