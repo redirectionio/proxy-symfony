@@ -17,17 +17,20 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 
-class RequestResponseListener
+/**
+ * @internal
+ */
+final class RequestResponseListener
 {
     private $client;
-    private $excludedPrefixes;
     private $allowMatchOnResponse;
+    private $circuitBreakers;
 
-    public function __construct(Client $client, array $excludedPrefixes = [], bool $allowMatchOnResponse = false)
+    public function __construct(Client $client, bool $allowMatchOnResponse = false, iterable $circuitBreakers = [])
     {
         $this->client = $client;
-        $this->excludedPrefixes = $excludedPrefixes;
         $this->allowMatchOnResponse = $allowMatchOnResponse;
+        $this->circuitBreakers = $circuitBreakers;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
@@ -38,8 +41,10 @@ class RequestResponseListener
 
         $request = $event->getRequest();
 
-        if ($this->isExcludedPrefix($request->getPathInfo())) {
-            return;
+        foreach ($this->circuitBreakers as $circuitBreaker) {
+            if ($circuitBreaker->shouldNotProcessRequest($request)) {
+                return;
+            }
         }
 
         /** @var Response $response */
@@ -70,7 +75,7 @@ class RequestResponseListener
 
         $symfonyResponse = $event->getResponse();
 
-        if ($rioResponse->getMatchOnResponseStatus() === 0 || $rioResponse->getMatchOnResponseStatus() !== $symfonyResponse->getStatusCode()) {
+        if (0 === $rioResponse->getMatchOnResponseStatus() || $rioResponse->getMatchOnResponseStatus() !== $symfonyResponse->getStatusCode()) {
             return;
         }
 
@@ -81,8 +86,10 @@ class RequestResponseListener
 
     public function onKernelTerminate(PostResponseEvent $event)
     {
-        if ($this->isExcludedPrefix($event->getRequest()->getPathInfo())) {
-            return;
+        foreach ($this->circuitBreakers as $circuitBreaker) {
+            if ($circuitBreaker->shouldNotProcessRequest($event->getRequest())) {
+                return;
+            }
         }
 
         $response = $event->getRequest()->attributes->get('redirectionio_response');

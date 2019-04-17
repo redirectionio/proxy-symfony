@@ -2,6 +2,7 @@
 
 ## 0.2.1
 
+- Refactor how request are ignored: Introduced a new interface: `CircuitBreakerInterface`
 - Fixed support for v0.3 of the SDK
 
 ## 0.2.0

@@ -2,6 +2,8 @@
 
 namespace RedirectionIO\Client\ProxySymfony\DependencyInjection;
 
+use RedirectionIO\Client\ProxySymfony\CircuitBreaker\CircuitBreakerInterface;
+use RedirectionIO\Client\ProxySymfony\CircuitBreaker\PathInfoPrefixBreaker;
 use RedirectionIO\Client\ProxySymfony\EventListener\RequestResponseListener;
 use RedirectionIO\Client\Sdk\Client;
 use Symfony\Component\Config\FileLocator;
@@ -9,7 +11,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class RedirectionIOExtension extends Extension
+/**
+ * @internal
+ */
+final class RedirectionIOExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -35,8 +40,23 @@ class RedirectionIOExtension extends Extension
 
         $container
             ->getDefinition(RequestResponseListener::class)
-            ->replaceArgument(1, $config['excluded_prefixes'])
-            ->replaceArgument(2, $config['match_on_response'])
+            ->replaceArgument(1, $config['match_on_response'])
         ;
+
+        if ($config['excluded_prefixes']) {
+            $container
+                ->getDefinition(PathInfoPrefixBreaker::class)
+                ->replaceArgument(0, $config['excluded_prefixes'])
+            ;
+        } else {
+            $container->removeDefinition(PathInfoPrefixBreaker::class);
+        }
+
+        if (method_exists($container, 'registerForAutoconfiguration')) {
+            $container
+                ->registerForAutoconfiguration(CircuitBreakerInterface::class)
+                ->addTag('redirectionio.circuit_breaker')
+            ;
+        }
     }
 }
