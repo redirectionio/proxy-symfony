@@ -3,6 +3,7 @@
 namespace RedirectionIO\Client\ProxySymfony\DependencyInjection;
 
 use RedirectionIO\Client\ProxySymfony\CircuitBreaker\CircuitBreakerInterface;
+use RedirectionIO\Client\ProxySymfony\CircuitBreaker\HostBreaker;
 use RedirectionIO\Client\ProxySymfony\CircuitBreaker\PathInfoPrefixBreaker;
 use RedirectionIO\Client\ProxySymfony\EventListener\RequestResponseListener;
 use RedirectionIO\Client\Sdk\Client;
@@ -50,6 +51,15 @@ final class RedirectionIOExtension extends Extension
             ;
         } else {
             $container->removeDefinition(PathInfoPrefixBreaker::class);
+        }
+
+        if ($config['excluded_hosts']) {
+            $container
+                ->getDefinition(HostBreaker::class)
+                ->replaceArgument(0, $config['excluded_hosts'])
+            ;
+        } else {
+            $container->removeDefinition(HostBreaker::class);
         }
 
         if (method_exists($container, 'registerForAutoconfiguration')) {

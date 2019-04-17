@@ -43,20 +43,20 @@ The following command dump the configuration reference:
 bin/console config:dump-reference redirection_io
 ```
 
-The following command dump your configuration
+The following command dump your configuration:
 
 ```bash
 bin/console  debug:config redirection_io
 ```
 
-## Do not process some URLs
+## Do not process some requests
 
-You might want to exclude some URLs, because you know there will never have some
-redirection on it, and you don't want log on it. It's the case for debug routes
-like (`/_wdt`, `/_profiler`, and `/_error`). That's why ignore theses URL prefix
-by default.
+You might want to exclude some requests, because you know they will never have
+some redirections on it, or you don't want log them. It's the case for debug
+routes for example: `/_wdt`, `/_profiler`, and `/_error`. That's why we ignore
+theses request by default thanks to their URL prefixes.
 
-### Ignore URL by prefix
+### Ignore requests by URL prefix
 
 You can add more prefixes to the configuration:
 
@@ -68,9 +68,20 @@ redirection_io:
         # ...
 ```
 
+### Ignore requests by Host
+
+```yaml
+redirection_io:
+    excluded_hosts:
+        - api.example.com
+        - admin.example.com
+        # - 127.0.0.1
+        # ...
+```
+
 ### Ignore other requests
 
-If you need to do custom code to ignore some Request, you have to implement
+If you need to do custom code to ignore some requests, you have to implement
 `RedirectionIO\Client\ProxySymfony\CircuitBreaker\CircuitBreakerInterface`.
 
 If you are not using the default configuration of Symfony (`autowire=true` and

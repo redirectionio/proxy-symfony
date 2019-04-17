@@ -2,6 +2,7 @@
 
 ## 0.2.1
 
+- Added `excluded_hosts` configuration option
 - Refactor how request are ignored: Introduced a new interface: `CircuitBreakerInterface`
 - Fixed support for v0.3 of the SDK
 

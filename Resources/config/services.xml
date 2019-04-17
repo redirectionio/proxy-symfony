@@ -26,5 +26,10 @@
             <argument /> <!-- excludedUrls, set by the extension -->
             <tag name="redirectionio.circuit_breaker" />
         </service>
+
+        <service id="RedirectionIO\Client\ProxySymfony\CircuitBreaker\HostBreaker" class="RedirectionIO\Client\ProxySymfony\CircuitBreaker\HostBreaker">
+            <argument /> <!-- excludedHost, set by the extension -->
+            <tag name="redirectionio.circuit_breaker" />
+        </service>
     </services>
 </container>

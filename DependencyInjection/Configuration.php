@@ -55,6 +55,10 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->defaultValue($excludedPrefixes)
                 ->end()
+                ->arrayNode('excluded_hosts')
+                    ->info('Exclude a set of hosts from processing')
+                    ->prototype('scalar')->end()
+                ->end()
             ->end()
         ;
 
