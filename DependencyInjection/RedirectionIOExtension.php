@@ -37,6 +37,7 @@ final class RedirectionIOExtension extends Extension
             ->replaceArgument(0, $config['project_key'])
             ->replaceArgument(1, $connections)
             ->replaceArgument(3, $config['debug'])
+            ->replaceArgument(5, $config['persist'])
         ;
 
         $container

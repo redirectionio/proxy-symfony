@@ -19,6 +19,7 @@
             <argument>10000</argument>
             <argument /> <!-- debug, set by the extension -->
             <argument type="service" id="logger" on-invalid="ignore" />
+            <argument /> <!-- persist, set by the extension -->
             <tag name="monolog.logger" channel="redirectionio" />
         </service>
 
