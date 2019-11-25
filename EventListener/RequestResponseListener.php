@@ -2,12 +2,12 @@
 
 namespace RedirectionIO\Client\ProxySymfony\EventListener;
 
+use RedirectionIO\Client\Sdk\Client;
 use RedirectionIO\Client\Sdk\Command\CommandInterface;
 use RedirectionIO\Client\Sdk\Command\LogCommand;
 use RedirectionIO\Client\Sdk\Command\MatchCommand;
 use RedirectionIO\Client\Sdk\Command\MatchWithResponseCommand;
 use RedirectionIO\Client\Sdk\Exception\ExceptionInterface;
-use RedirectionIO\Client\Sdk\Client;
 use RedirectionIO\Client\Sdk\HttpMessage\Request;
 use RedirectionIO\Client\Sdk\HttpMessage\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse;
