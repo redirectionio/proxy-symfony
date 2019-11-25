@@ -10,13 +10,15 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 final class Configuration implements ConfigurationInterface
 {
+    const ROOT_NAME = 'redirection_io';
+    
     /**
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('redirection_io');
+        $treeBuilder = new TreeBuilder(self::ROOT_NAME);
+        $rootNode = $this->getRootNode($treeBuilder);
         $excludedPrefixes = ['/_wdt', '/_profiler', '/_error'];
 
         $rootNode
@@ -67,5 +69,17 @@ final class Configuration implements ConfigurationInterface
         ;
 
         return $treeBuilder;
+    }
+    
+    /**
+     * Returns the root node of TreeBuilder with backwards compatibility with Symfony < 4.3
+     */
+    private function getRootNode(TreeBuilder $treeBuilder): NodeDefinition
+    {
+        if (\method_exists($treeBuilder, 'getRootNode')) {
+            return $treeBuilder->getRootNode();
+        } else {
+            return $treeBuilder->root(self::ROOT_NAME);
+        }
     }
 }
