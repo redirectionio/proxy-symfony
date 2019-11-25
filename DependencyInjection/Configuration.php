@@ -2,6 +2,7 @@
 
 namespace RedirectionIO\Client\ProxySymfony\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -11,7 +12,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 final class Configuration implements ConfigurationInterface
 {
     const ROOT_NAME = 'redirection_io';
-    
+
     /**
      * {@inheritdoc}
      */
@@ -70,13 +71,13 @@ final class Configuration implements ConfigurationInterface
 
         return $treeBuilder;
     }
-    
+
     /**
-     * Returns the root node of TreeBuilder with backwards compatibility with Symfony < 4.3
+     * Returns the root node of TreeBuilder with backwards compatibility with Symfony < 4.3.
      */
     private function getRootNode(TreeBuilder $treeBuilder): NodeDefinition
     {
-        if (\method_exists($treeBuilder, 'getRootNode')) {
+        if (method_exists($treeBuilder, 'getRootNode')) {
             return $treeBuilder->getRootNode();
         } else {
             return $treeBuilder->root(self::ROOT_NAME);
