@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 0.3.0
+
+- Allow to deactivate persist flag on client connections
+- Fix Symfony 4 deprecations
+
 ## 0.2.1
 
 - Added `excluded_hosts` configuration option
