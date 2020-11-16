@@ -1,5 +1,14 @@
 # ChangeLog
 
+## 0.3.1
+
+- Fix compatibly with PHP 7.0
+
+## 0.3.0
+
+- Fix Symfony 4 deprecations
+- Allow to deactivate persist flag on client connections
+
 ## 0.2.1
 
 - Added `excluded_hosts` configuration option
