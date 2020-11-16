@@ -26,7 +26,7 @@ final class RequestResponseListener
     private $allowMatchOnResponse;
     private $circuitBreakers;
 
-    public function __construct(Client $client, bool $allowMatchOnResponse = false, iterable $circuitBreakers = [])
+    public function __construct(Client $client, bool $allowMatchOnResponse = false, /* iterable */ $circuitBreakers = [])
     {
         $this->client = $client;
         $this->allowMatchOnResponse = $allowMatchOnResponse;
